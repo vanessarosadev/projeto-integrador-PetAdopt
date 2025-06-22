@@ -90,6 +90,12 @@ public class AdotanteService {
           
     }
         
+    public List<AdotanteEntity> getAdotantePorCpf(String cpf) { 
+
+        return adotanteRepository.findByCpf(cpf); 
+          
+    }
+    
     public List<AdotanteEntity> getAdotantePorBairro(String bairro) { 
 
         return adotanteRepository.findByBairro(bairro); 

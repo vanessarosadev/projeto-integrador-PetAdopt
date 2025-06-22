@@ -28,7 +28,7 @@ public class AnimalController {
     @Autowired
     AnimalService animalService;
 
-    @GetMapping("/listar-animal") 
+    @GetMapping("/listar-animais") 
     public ResponseEntity<List> getAllAnimais() { 
         
         List<AnimalEntity> animais = animalService.listarTodosAnimais(); 
