@@ -10,7 +10,7 @@ package com.api.petadopt.service;
  * @author vanes
  */
 import com.api.petadopt.data.AnimalEntity; 
-import com.api.petadopt.data.AdotanteRepository; 
+import com.api.petadopt.data.AnimalRepository; 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired; 
