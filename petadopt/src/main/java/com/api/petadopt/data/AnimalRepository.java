@@ -24,4 +24,6 @@ public interface AnimalRepository extends JpaRepository<AnimalEntity, Integer> {
     List<AnimalEntity> findByCor(String cor);
     List<AnimalEntity> findByTemperamento(String temperamento);
     List<AnimalEntity> findByNomeContaining(String nome);
+    List<AnimalEntity> findByEspecieContaining(String especie);
+    List<AnimalEntity> findByRacaContaining(String raca);
 }
