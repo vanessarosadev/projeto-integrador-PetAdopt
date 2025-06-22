@@ -9,11 +9,73 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link rel="stylesheet" th:href="@{/style.css}" />
     </head>
     <body>
         <header th:insert="navbar.html"></header>
-        <div>TODO write content</div>
+        <div class="container mt-5">
+            <h1 class="section-title">Cadastrar Animal</h1>
+
+            <div th:if="${erro}" class="alert alert-danger" role="alert">
+                <span th:text="${erro}"></span>
+            </div>
+
+            <div class="card p-4">
+                <form th:action="@{/cadastrar-animal}" th:object="${animal}" method="post">
+                    <input type="hidden" th:field="*{id}" />
+                    <div class="form-group">
+                        <label for="nome">Nome</label>
+                        <input type="text" id="nome" name="nome" class="form-control" th:field="*{nome}" required />
+                        <span class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="especie">Espécie:</label>
+                        <input type="text" id="especie" name="especie" class="form-control" th:field="*{especie}" required />
+                        <span class="text-danger" th:if="${#fields.hasErrors('especie')}" th:errors="*{especie}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="genero">Gênero:</label>
+                        <input type="text" id="genero" name="genero" class="form-control" th:field="*{genero}" required />
+                        <span class="text-danger" th:if="${#fields.hasErrors('genero')}" th:errors="*{genero}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="raca">Raça:</label>
+                        <input type="text" id="raca" name="raca" class="form-control" th:field="*{raca}" required />
+                        <span class="text-danger" th:if="${#fields.hasErrors('raca')}" th:errors="*{raca}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="porte">Porte:</label>
+                        <input type="text" id="porte" name="porte" class="form-control" th:field="*{porte}" required />
+                        <span class="text-danger" th:if="${#fields.hasErrors('porte')}" th:errors="*{porte}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="cor">Cor:</label>
+                        <input type="text" id="cor" name="cor" class="form-control" th:field="*{cor}" required />
+                        <span class="text-danger" th:if="${#fields.hasErrors('cor')}" th:errors="*{cor}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="temperamento">Temperamento:</label>
+                        <input type="text" id="temperamento" name="temperamento" class="form-control" th:field="*{temperamento}" required />
+                        <span class="text-danger" th:if="${#fields.hasErrors('temperamento')}" th:errors="*{temperamento}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="nascimento">Data de nascimento:</label>
+                        <input type="date" id="nascimento" name="nascimento" class="form-control" th:field="*{nascimento}" />
+                        <span class="text-danger" th:if="${#fields.hasErrors('nascimento')}" th:errors="*{nascimento}"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="chegada">Data de chegada:</label>
+                        <input type="date" id="chegada" name="chegada" class="form-control" th:field="*{chegada}" required />
+                        <span class="text-danger" th:if="${#fields.hasErrors('chegada')}" th:errors="*{chegada}"></span>
+                    </div>
+                    <br>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
+                </form>
+            </div>
+        </div>
+        
+        <footer class="footer bg-dark text-white py-5" th:insert="footerbar.html"></footer>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
         <script th:src="@{/script.js}"></script>
