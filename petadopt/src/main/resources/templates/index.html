@@ -14,7 +14,120 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     </head>
     <body>
         <header th:insert="navbar.html"></header>
-        <div>TODO write content</div>
+        <main class="container my-5">
+            <section class="text-center mb-5">
+                <h1 class="mb-4 text-primary">Bem-vindo ao PetAdopt Manager!</h1>
+                <p class="lead text-muted">Gerencie adoções e encontre novos lares para animais de forma eficiente e organizada.</p>
+                <p class="lead text-muted">
+                    O <strong>PetAdopt Manager</strong> é um sistema pensado para facilitar a gestão de adoções em ONGs de proteção animal. Nossa solução é completa, intuitiva e segura, ajudando você a conectar animais a novos lares de forma eficiente e organizada. Explore nossas funcionalidades e transforme o futuro desses amigos peludos!
+                </p>
+            </section>
+
+            <section class="row align-items-center mb-5">
+                <div class="col-md-6">
+                    <img src="cadastro-image.jpg" alt="Cadastro de Animais" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-md-6">
+                    <h2 class="mb-3">Funcionalidades de Cadastro</h2>
+                    <p>
+                        O sistema permite cadastrar todos os animais disponíveis para adoção e os adotantes interessados. Inclua informações como:
+                    </p>
+                    <ul>
+                        <li>Dados dos animais (raça, idade, porte, etc.).</li>
+                        <li>Informações dos adotantes (nome, contatos, etc.).</li>
+                        <li>Análise preliminar de aptidão dos adotantes.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Funcionalidades de Registro -->
+            <section class="row align-items-center mb-5">
+                <div class="col-md-6 order-md-2">
+                    <img src="registro-image.jpg" alt="Registro de Adoções" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-md-6 order-md-1">
+                    <h2 class="mb-3">Funcionalidades de Registro</h2>
+                    <p>
+                        Acompanhe e registre todos os eventos relacionados às adoções, incluindo:
+                    </p>
+                    <ul>
+                        <li>Solicitações de adoção.</li>
+                        <li>Aprovações ou rejeições de aptidão.</li>
+                        <li>Registro de adoções concluídas e devoluções.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- Funcionalidades de Listas e Relatórios -->
+            <section class="row align-items-center">
+                <div class="col-md-6">
+                    <img src="lista-image.jpg" alt="Listas e Relatórios" class="img-fluid rounded shadow">
+                </div>
+                <div class="col-md-6">
+                    <h2 class="mb-3">Funcionalidades de Listas e Relatórios</h2>
+                    <p>
+                        Gere relatórios detalhados para análise e acompanhamento, incluindo:
+                    </p>
+                    <ul>
+                        <li>Lista de animais disponíveis para adoção.</li>
+                        <li>Lista de adotantes cadastrados.</li>
+                        <li>Estatísticas sobre adoções, devoluções e mais.</li>
+                    </ul>
+                </div>
+            </section>
+            
+            <section class="row text-center my-5">
+                <div class="col-md-4">
+                    <div class="card border-primary">
+                        <div class="card-body">
+                            <h5 class="card-title">Total de Pets Disponíveis</h5>
+                            <p class="card-text display-4 text-primary" th:text="${petsDisponiveis}">15</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-success">
+                        <div class="card-body">
+                            <h5 class="card-title">Adoções Realizadas</h5>
+                            <p class="card-text display-4 text-success" th:text="${adocoesRealizadas}">120</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card border-danger">
+                        <div class="card-body">
+                            <h5 class="card-title">Devoluções</h5>
+                            <p class="card-text display-4 text-danger" th:text="${devolucoes}">5</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="text-center">
+                <h2 class="mb-4">Funcionalidades</h2>
+                <div class="row">
+                    <div class="col-md-4 mb-3">
+                        <a th:href="@{/cadastrar-animal}" class="btn btn-outline-primary w-100">
+                            <i class="fas fa-paw"></i> Cadastro de Animais
+                        </a>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <a th:href="@{/cadastrar-adotante}" class="btn btn-outline-secondary w-100">
+                            <i class="fas fa-user-plus"></i> Cadastro de Adotantes
+                        </a>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <a th:href="@{/lista-animais}" class="btn btn-outline-success w-100">
+                            <i class="fas fa-list"></i> Lista de Animais
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="bg-dark text-white text-center py-3">
+            <p class="mb-0">&copy; 2025 PetAdopt Manager. Todos os direitos reservados.</p>
+        </footer>
         
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
         <script th:src="@{/script.js}"></script>
