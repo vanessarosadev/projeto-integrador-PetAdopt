@@ -66,6 +66,11 @@ public class AnimalService {
 
         return animalRepository.findAll(); 
     } 
+    
+    public List<AnimalEntity> listarAnimaisDisponiveis() { 
+
+        return animalRepository.findByDisponivelTrue();    
+    }
 
     public boolean deletarAnimal(Integer animalId) { 
         Optional<AnimalEntity> animal = animalRepository.findById(animalId);
@@ -93,4 +98,11 @@ public class AnimalService {
         return animalRepository.findByRacaContaining(raca); 
           
     }
+    
+    public List<AnimalEntity> getAnimalPorGenero(String genero) { 
+
+        return animalRepository.findByGeneroContaining(genero); 
+          
+    }
+    
 }

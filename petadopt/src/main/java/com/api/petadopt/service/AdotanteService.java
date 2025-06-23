@@ -64,7 +64,7 @@ public class AdotanteService {
                 .orElseThrow(() -> new ResourceNotFoundException("Adotante não encontrado com id " + adotanteId)); 
     }
     
-    public AdotanteEntity getAdotanteCpf(Integer adotanteCpf) { 
+    public AdotanteEntity getAdotanteCpf(String adotanteCpf) { 
 
         return adotanteRepository.findByCpf(adotanteCpf)
                 .orElseThrow(() -> new ResourceNotFoundException("Adotante não encontrado com CPF " + adotanteCpf)); 
@@ -87,12 +87,6 @@ public class AdotanteService {
     public List<AdotanteEntity> getAdotantePorNome(String nome) { 
 
         return adotanteRepository.findByNomeContaining(nome); 
-          
-    }
-        
-    public List<AdotanteEntity> getAdotantePorCpf(String cpf) { 
-
-        return adotanteRepository.findByCpf(cpf); 
           
     }
     

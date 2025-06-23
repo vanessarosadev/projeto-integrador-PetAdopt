@@ -24,7 +24,7 @@ import java.time.LocalDate;
 public class AnimalEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
     
     @NotBlank(message="O nome é obrigatório")
     @Size(max = 100, message = "O nome não pode ultrapassar 100 caracteres")
@@ -60,4 +60,7 @@ public class AnimalEntity {
     @NotNull(message = "A data de chegada é obrigatória")
     @PastOrPresent(message = "A data de chegada deve estar no passado ou no presente")
     private LocalDate chegada;
+    
+    @NotNull(message = "A disponibilidade é obrigatória")
+    private Boolean disponivel = true;
 }

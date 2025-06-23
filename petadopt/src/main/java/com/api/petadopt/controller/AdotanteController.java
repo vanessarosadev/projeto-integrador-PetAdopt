@@ -83,10 +83,10 @@ public class AdotanteController {
     }
     
     @GetMapping("/pesquisar-cpf/{cpf}")
-    public ResponseEntity<List> getPesquisarAdotantePorCpf(@PathVariable String cpf) { 
+    public ResponseEntity<AdotanteEntity> getPesquisarAdotantePorCpf(@PathVariable String cpf) { 
         try {
-            List<AdotanteEntity> adotantes = adotanteService.getAdotantePorCpf(cpf);
-            return ResponseEntity.ok(adotantes);
+            AdotanteEntity adotante = adotanteService.getAdotanteCpf(cpf);
+            return ResponseEntity.ok(adotante);
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }

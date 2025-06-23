@@ -20,7 +20,7 @@ import java.time.LocalDate;
 public class AdotanteEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    private Integer id;
     
     @NotBlank(message = "O nome é obrigatório")
     @Size(max = 255, message = "O nome não pode ultrapassar 255 caracteres")
