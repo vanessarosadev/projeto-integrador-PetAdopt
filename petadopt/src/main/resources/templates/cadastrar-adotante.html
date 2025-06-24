@@ -25,7 +25,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <form th:action="@{/cadastrar-adotante}" th:object="${adotante}" method="post">
                     <input type="hidden" th:field="*{id}" />
                     <div class="form-group">
-                        <label for="nome">Nome</label>
+                        <label for="nome">Nome:</label>
                         <input type="text" id="nome" name="nome" class="form-control" th:field="*{nome}" required />
                         <span class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
                     </div>
