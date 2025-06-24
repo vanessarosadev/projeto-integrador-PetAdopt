@@ -24,8 +24,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
             <div class="card p-4">
                 <form th:action="@{/cadastrar-animal}" th:object="${animal}" method="post">
                     <input type="hidden" th:field="*{id}" />
+                    <input type="hidden" th:field="*{disponivel}" />
                     <div class="form-group">
-                        <label for="nome">Nome</label>
+                        <label for="nome">Nome:</label>
                         <input type="text" id="nome" name="nome" class="form-control" th:field="*{nome}" required />
                         <span class="text-danger" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}"></span>
                     </div>

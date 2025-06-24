@@ -121,7 +121,7 @@ public class FrontController {
         } else { 
             animalService.atualizarAnimal(animal.getId(), animal); 
         } 
-        return "exibir"; 
+        return "/exibir-animal"; 
     } 
 
     /*@GetMapping("/atualizar-analise-form/{filmeId}/{analiseId}")
