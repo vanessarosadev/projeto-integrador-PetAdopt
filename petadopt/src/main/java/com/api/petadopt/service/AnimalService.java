@@ -49,7 +49,9 @@ public class AnimalService {
         
         animal.setNascimento(animalRequest.getNascimento()); 
         
-        animal.setChegada(animalRequest.getChegada()); 
+        animal.setChegada(animalRequest.getChegada());
+        
+        animal.setDisponivel(animalRequest.getDisponivel());
         
         animalRepository.save(animal); 
 
