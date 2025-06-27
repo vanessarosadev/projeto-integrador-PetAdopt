@@ -115,21 +115,30 @@ public class FrontController {
     }
     
     @GetMapping("/listar-adocoes") 
-    public String listarTodasAdocoes(@RequestParam(value = "id", required = false) Integer adocaoId,
+    public String listarTodasAdocoes(@RequestParam(value = "id", required = false) Integer id,
                                 @RequestParam(value = "animalId", required = false) Integer animalId,
+                                @RequestParam(value = "animalNome", required = false) String animalNome,
+                                @RequestParam(value = "animalEspecie", required = false) String animalEspecie,
                                 @RequestParam(value = "adotanteId", required = false) Integer adotanteId,
+                                @RequestParam(value = "adotanteNome", required = false) String adotanteNome,
                                 Model model) {
-        if (adocaoId != null) {
+        if (id != null) {
             try {
-                model.addAttribute("listarTodasAdocoes", List.of(adocaoService.getAdocaoId(adocaoId)));
+                model.addAttribute("listarTodasAdocoes", List.of(adocaoService.getAdocaoId(id)));
             } catch (ResourceNotFoundException e) {
                 model.addAttribute("mensagemErro", "Adoção não encontrada com o ID fornecido.");
-                model.addAttribute("listarTodasAdocoes", adocaoService.listarTodosAdotantes());
+                model.addAttribute("listarTodasAdocoes", adocaoService.listarTodasAdocoes());
             }
         } else if (animalId != null && !animalId.isEmpty()) {
             model.addAttribute("listarTodasAdocoes", adocaoService.listarAdocoesPorAnimal(animalId));
+        } else if (animalNome != null && !animalNome.isEmpty()) {
+            model.addAttribute("listarTodasAdocoes", adocaoService.listarAdocoesPorNomeAnimal(animalNome));
+        } else if (animalEspecie != null && !animalEspecie.isEmpty()) {
+            model.addAttribute("listarTodasAdocoes", adocaoService.listarAdocoesPorEspecieAnimal(animalEspecie));
         } else if (adotanteId != null && !adotanteId.isEmpty()) {
             model.addAttribute("listarTodasAdocoes", adocaoService.listarAdocoesPorAdotante(adotanteId));
+        } else if (adotanteNome != null && !adotanteNome.isEmpty()) {
+            model.addAttribute("listarTodasAdocoes", adocaoService.listarAdocoesPorNomeAdotante(adotanteNome));
         } else {
             model.addAttribute("listarTodasAdocoes", adocaoService.listarTodasAdocoes());
         }

@@ -82,4 +82,16 @@ public class AdocaoService {
         return true;
     }
     
+    public List<AdocaoEntity> listarAdocoesPorNomeAnimal(String animalNome) {
+        return adocaoRepository.findByAnimalNomeContainingIgnoreCase(animalNome);
+    }
+
+    public List<AdocaoEntity> listarAdocoesPorEspecieAnimal(String animalEspecie) {
+        return adocaoRepository.findByAnimalEspecieContainingIgnoreCase(animalEspecie);
+    }
+
+    public List<AdocaoEntity> listarAdocoesPorNomeAdotante(String adotanteNome) {
+        return adocaoRepository.findByAdotanteNomeContainingIgnoreCase(adotanteNome);
+    }
+    
 }

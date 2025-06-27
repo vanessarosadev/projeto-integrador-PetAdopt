@@ -17,5 +17,12 @@ import com.api.petadopt.data.AdocaoEntity;
 
 public interface AdocaoRepository extends JpaRepository<AdocaoEntity, Integer> {
     List<AdocaoEntity> findByAdotanteId(Integer adotanteId);
+    
     List<AdocaoEntity> findByAnimalId(Integer animalId);
+    
+    List<AdocaoEntity> findByAnimalNomeContainingIgnoreCase(String animalNome);
+
+    List<AdocaoEntity> findByAnimalEspecieContainingIgnoreCase(String animalEspecie);
+
+    List<AdocaoEntity> findByAdotanteNomeContainingIgnoreCase(String adotanteNome);
 }
