@@ -61,6 +61,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <th>Espécie</th>
                         <th>ID da Adotante</th>
                         <th>Nome do Adotante</th>
+                        <th>Data da Adoção</th>
+                        <th>Observações</th>
                         <th>Ações</th>
                     </tr>
                 </thead>
@@ -72,6 +74,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <td th:text="${adocao.animal.especie}"></td>
                         <td th:text="${adocao.adotanteId}"></td>
                         <td th:text="${adocao.adotante.nome}"></td>
+                        <td th:text="${adocao.dataAdocao}"></td>
+                        <td th:text="${adocao.observacao}"></td>
                         <td>
                             <a th:href="@{'/exibir-adocao/' + ${adocao.id}}" class="btn btn-primary btn-sm">Ver Detalhes</a>
                         </td>
