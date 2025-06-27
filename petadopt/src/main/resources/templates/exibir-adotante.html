@@ -36,8 +36,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <a th:href="@{/deletar-adotante/{id}(id=${adotante.id})}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar o cadastro deste adotante?')">Excluir Adotante</a>
                     </div>
                 </div>
-            </div>
-            <a th:href="@{/listar-adotantes}" class="btn btn-secondary mt-3">Voltar</a>
+                <a th:href="@{/listar-adotantes}" class="btn btn-secondary mt-3">Voltar</a>
+            </div>   
         </div>
         <footer class="footer bg-dark text-white py-5" th:insert="footerbar.html"></footer>
         
