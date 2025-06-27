@@ -27,9 +27,9 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <p><strong>Porte:</strong> <span th:text="${animal.porte}"></span></p>
                         <p><strong>Cor:</strong> <span th:text="${animal.cor}"></span></p>
                         <p><strong>Temperamento:</strong> <span th:text="${animal.temperamento}"></span></p>
-                        <p><strong>Data de nascimento:</strong> <span th:text="${animal.nascimento}"></span></p>
-                        <p><strong>Data de chegada:</strong> <span th:text="${animal.chegada}"></span></p>
-                        <p><strong>Disponibilidade para adoção:</strong> <span th:text="${animal.disponivel}"></span></p>
+                        <p><strong>Data de nascimento:</strong> <span th:text="${animal.nascimentoFormat}"></span></p>
+                        <p><strong>Data de chegada:</strong> <span th:text="${animal.chegadaFormat}"></span></p>
+                        <p><strong>Disponibilidade para adoção:</strong> <span th:text="${animal.disponivel ? 'Disponível' : 'Indisponível'}"></span></p>
                     </div>
                     <div class="col-md-4">
                         <a th:href="@{/atualizar-animal-form/{id}(id=${animal.id})}" class="btn btn-primary">Atualizar Animal</a>

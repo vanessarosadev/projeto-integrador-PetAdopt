@@ -17,6 +17,7 @@ import jakarta.validation.constraints.Past;
 import jakarta.validation.constraints.PastOrPresent;
 import lombok.Data;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -63,4 +64,13 @@ public class AnimalEntity {
     
     @NotNull(message = "A disponibilidade é obrigatória")
     private Boolean disponivel = true;
+    
+    public String getChegadaFormat() {
+        return chegada != null ? chegada.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "Data não informada";
+    }
+
+    public String getNascimentoFormat() {
+        return nascimento != null ? nascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "Data não informada";
+    }
+
 }

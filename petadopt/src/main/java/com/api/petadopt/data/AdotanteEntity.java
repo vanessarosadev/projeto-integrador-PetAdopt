@@ -13,6 +13,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 @Data
 @Entity
@@ -61,4 +62,8 @@ public class AdotanteEntity {
     @NotNull(message = "O CEP é obrigatório")
     @Pattern(regexp = "\\d{8}", message = "O CEP deve conter 8 dígitos")
     private String cep;
+    
+    public String getNascimentoFormat() {
+        return nascimento != null ? nascimento.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")) : "Data não informada";
+    }
 }

@@ -150,7 +150,7 @@ public class FrontController {
             model.addAttribute("erro", "Animal não encontrado.");
             return "erro";
         }
-        return "redirect:/"; 
+        return "/listar-animais"; 
     } 
     
     @GetMapping("/deletar-adotante/{id}") 
@@ -161,7 +161,7 @@ public class FrontController {
             model.addAttribute("erro", "Adotante não encontrado.");
             return "erro";
         }
-        return "redirect:/"; 
+        return "/listar-adotantes"; 
     } 
 
     @GetMapping("/cadastrar-animal-form") 
