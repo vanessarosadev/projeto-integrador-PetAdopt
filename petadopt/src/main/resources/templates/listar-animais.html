@@ -16,30 +16,39 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
         <div class="container mt-5">
             <h1 class="mb-4">Lista de Animais</h1>
             
-            <form action="/listar-animais" method="get" class="mb-4">
-                <label>Filtros:</label>
-                <div class="row g-2">
-                    <div class="col-md-2">
-                        <input type="text" name="id" class="form-control" placeholder="Buscar por ID">
+            <div class="container p-3 border rounded bg-light">
+                <form action="/listar-animais" method="get">
+                    <h6 class="mb-3">Filtros:</h6>
+                    <div class="row g-3 mb-3">
+                        <div class="col-md-2">
+                            <input type="text" name="id" class="form-control" placeholder="Buscar por ID">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" name="nome" class="form-control" placeholder="Buscar por Nome">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" name="especie" class="form-control" placeholder="Buscar por Espécie">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" name="genero" class="form-control" placeholder="Buscar por Gênero">
+                        </div>
+                        <div class="col-md-2">
+                            <input type="text" name="raca" class="form-control" placeholder="Buscar por Raça">
+                        </div>
+                        <div class="col-md-2">
+                            <select name="disponivel" class="form-select text-muted">
+                                <option value="" selected disabled>Disponibilidade</option>
+                                <option value="true">Disponível</option>
+                                <option value="false">Indisponível</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="col-md-2">
-                        <input type="text" name="nome" class="form-control" placeholder="Buscar por Nome">
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary btn-sm me-2 w-25">Buscar</button>
+                        <a th:href="@{/listar-animais}" class="btn btn-secondary btn-sm w-20">Limpar Filtro</a>
                     </div>
-                    <div class="col-md-2">
-                        <input type="text" name="especie" class="form-control" placeholder="Buscar por Espécie">
-                    </div>
-                    <div class="col-md-2">
-                        <input type="text" name="genero" class="form-control" placeholder="Buscar por Gênero">
-                    </div>
-                    <div class="col-md-2">
-                        <input type="text" name="raca" class="form-control" placeholder="Buscar por Raça">
-                    </div>
-                    <div class="col-md-2 d-flex">
-                        <button type="submit" class="btn btn-primary btn-sm me-2">Buscar</button>
-                        <a th:href="@{/listar-animais}" class="btn btn-secondary btn-sm">Limpar Filtro</a>
-                    </div>
-                </div>
-            </form>
+                </form>
+            </div>
             <div th:if="${mensagemSucesso}" class="alert alert-success" role="alert">
                 <span th:text="${mensagemSucesso}"></span>
             </div>
@@ -79,10 +88,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                         <td th:text="${animal.disponivel ? 'Disponível' : 'Indisponível'}"></td>
                         <td>
                             <a th:href="@{'/exibir-animal/' + ${animal.id}}" class="btn btn-primary btn-sm">Ver Detalhes</a>
-                            <a th:href="@{'/atualizar-animal-form/' + ${animal.id}}" class="btn btn-primary btn-sm">Atualizar</a>
-                            <a th:href="@{'/deletar-animal/' + ${animal.id}}" 
-                               class="btn btn-danger btn-sm"
-                               onclick="return confirm('Tem certeza que deseja deletar este animal?')">Excluir</a>
                         </td>
                     </tr>
                 </tbody>

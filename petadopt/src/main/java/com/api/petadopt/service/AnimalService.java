@@ -73,6 +73,10 @@ public class AnimalService {
 
         return animalRepository.findByDisponivelTrue();    
     }
+    
+    public List<AnimalEntity> listarAnimaisIndisponiveis() {
+        return animalRepository.findByDisponivelFalse();
+    }
 
     public boolean deletarAnimal(Integer animalId) { 
         Optional<AnimalEntity> animal = animalRepository.findById(animalId);

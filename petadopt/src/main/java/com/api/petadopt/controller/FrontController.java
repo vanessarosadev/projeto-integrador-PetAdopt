@@ -42,6 +42,7 @@ public class FrontController {
                                 @RequestParam(value = "especie", required = false) String especie,
                                 @RequestParam(value = "genero", required = false) String genero,
                                 @RequestParam(value = "raca", required = false) String raca,
+                                @RequestParam(value = "disponivel", required = false) String disponivel,
                                 Model model) {
         if (id != null) {
             try {
@@ -58,6 +59,10 @@ public class FrontController {
             model.addAttribute("listarTodosAnimais", animalService.getAnimalPorGenero(genero));
         } else if (raca != null && !raca.isEmpty()) {
             model.addAttribute("listarTodosAnimais", animalService.getAnimalPorRaca(raca));
+        } else if ("true".equals(disponivel)) {
+            model.addAttribute("listarTodosAnimais", animalService.listarAnimaisDisponiveis());
+        } else if ("false".equals(disponivel)) {
+            model.addAttribute("listarTodosAnimais", animalService.listarAnimaisIndisponiveis());
         } else {
             model.addAttribute("listarTodosAnimais", animalService.listarTodosAnimais());
         }

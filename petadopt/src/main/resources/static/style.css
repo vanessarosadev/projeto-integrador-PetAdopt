@@ -257,6 +257,8 @@ section {
     padding: 0.75rem 1.5rem;
     border-radius: 0.35rem;
     transition: all 0.3s ease;
+    max-height: 36px; /* Ajuste o valor conforme necessário */
+    overflow: hidden;
 }
 
 .btn-primary {
@@ -277,6 +279,18 @@ section {
 .btn-outline-primary:hover {
     background-color: var(--primary-color);
     color: white;
+}
+
+.btn-sm {
+    padding: 6px 12px;
+}
+
+.btn-primary.w-25 {
+    min-width: 120px;
+}
+
+.form-select.text-muted option[value=""][disabled] {
+    color: #6c757d;
 }
 
 .cta-section {
