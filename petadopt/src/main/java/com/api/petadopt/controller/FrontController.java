@@ -11,8 +11,10 @@ package com.api.petadopt.controller;
  */
 import com.api.petadopt.data.AnimalEntity;
 import com.api.petadopt.data.AdotanteEntity;
+import com.api.petadopt.data.AdocaoEntity;
 import com.api.petadopt.service.AnimalService;
 import com.api.petadopt.service.AdotanteService;
+import com.api.petadopt.service.AdocaoService;
 import com.api.petadopt.exception.ResourceNotFoundException;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +33,9 @@ public class FrontController {
     
     @Autowired
     AdotanteService adotanteService;
+    
+    @Autowired
+    AdocaoService adocaoService;
     
     @GetMapping({"/", "/index"})
     public String home() {
@@ -109,6 +114,28 @@ public class FrontController {
         return "listar-adotantes"; 
     }
     
+    @GetMapping("/listar-adocoes") 
+    public String listarTodasAdocoes(@RequestParam(value = "id", required = false) Integer adocaoId,
+                                @RequestParam(value = "animalId", required = false) Integer animalId,
+                                @RequestParam(value = "adotanteId", required = false) Integer adotanteId,
+                                Model model) {
+        if (adocaoId != null) {
+            try {
+                model.addAttribute("listarTodasAdocoes", List.of(adocaoService.getAdocaoId(adocaoId)));
+            } catch (ResourceNotFoundException e) {
+                model.addAttribute("mensagemErro", "Adoção não encontrada com o ID fornecido.");
+                model.addAttribute("listarTodasAdocoes", adocaoService.listarTodosAdotantes());
+            }
+        } else if (animalId != null && !animalId.isEmpty()) {
+            model.addAttribute("listarTodasAdocoes", adocaoService.listarAdocoesPorAnimal(animalId));
+        } else if (adotanteId != null && !adotanteId.isEmpty()) {
+            model.addAttribute("listarTodasAdocoes", adocaoService.listarAdocoesPorAdotante(adotanteId));
+        } else {
+            model.addAttribute("listarTodasAdocoes", adocaoService.listarTodasAdocoes());
+        }
+        return "listar-adocoes"; 
+    }
+    
     @GetMapping("/exibir-animal/{id}") 
     public String exibirAnimal(@PathVariable Integer id, Model model) { 
         AnimalEntity animal = animalService.getAnimalId(id);
@@ -121,6 +148,13 @@ public class FrontController {
         AdotanteEntity adotante = adotanteService.getAdotanteId(id);
         model.addAttribute("adotante", adotante);
         return "exibir-adotante";
+    }
+    
+    @GetMapping("/exibir-adocao/{id}") 
+    public String exibirAdocao(@PathVariable Integer id, Model model) { 
+        AdocaoEntity adocao = adocaoService.getAdocaoId(id);
+        model.addAttribute("adocao", adocao);
+        return "exibir-adocao";
     }
     /*@GetMapping("/exibir-filme/{id}") 
     public String exibirFilme(@PathVariable Integer id, @RequestParam(value = "nota", required = false) Integer nota, Model model) { 
@@ -170,6 +204,17 @@ public class FrontController {
         return "/listar-adotantes"; 
     } 
 
+    @GetMapping("/deletar-adocao/{id}") 
+    public String deletarAdocao(@PathVariable(value = "id") Integer id, Model model) { 
+        try {
+            adocaoService.deletarAdocao(id);
+        } catch (ResourceNotFoundException e) {
+            model.addAttribute("erro", "Adocao não encontrada.");
+            return "erro";
+        }
+        return "/listar-adocoes"; 
+    } 
+    
     @GetMapping("/cadastrar-animal-form") 
     public String cadastrarAnimalForm(Model model) { 
         AnimalEntity animal = new AnimalEntity(); 
@@ -226,6 +271,33 @@ public class FrontController {
         return "/exibir-adotante"; 
     } 
 
+    @GetMapping("/regitrar-adocao-form") 
+    public String regitrarAdocaoForm(Model model) { 
+        AdocaoEntity adocao = new AdocaoEntity(); 
+        model.addAttribute("adocao", adocao); 
+        return "regitrar-adocao"; 
+    }
+    
+    @GetMapping("/atualizar-adocao-form/{id}") 
+    public String atualizarAdocaoForm(@PathVariable(value = "id") Integer id, Model model) { 
+        AdocaoEntity adocao = adocaoService.getAdocaoId(id); 
+        model.addAttribute("adocao", adocao); 
+        return "regitrar-adocao"; 
+    }
+    
+    @PostMapping("/cadastrar-adocao") 
+    public String cadastrarAdocao(@Valid @ModelAttribute("adocao") AdocaoEntity adocao, BindingResult result, Model model) {     
+        if (result.hasErrors()) {
+            model.addAttribute("mensagemErro", "Erro ao cadastrar a adoção. Tente novamente.");
+            return "regitrar-adocao"; 
+        } 
+        if (adocao.getId()==null) { 
+            adocaoService.criarAdocao(adocao);        
+        } else { 
+            adocaoService.atualizarAdocao(adocao.getId(), adocao); 
+        } 
+        return "/exibir-adocao"; 
+    }
     /*@GetMapping("/atualizar-analise-form/{filmeId}/{analiseId}")
     public String atualizarAnaliseForm(@PathVariable Integer filmeId, @PathVariable Integer analiseId, Model model) {
         FilmeEntity filme = filmeService.getFilmeId(filmeId);

@@ -51,6 +51,12 @@ public class AdocaoService {
 
         return adocao;
     }
+    
+    public AdocaoEntity getAdocaoId(Integer adocaoId) { 
+
+        return adocaoRepository.findById(adocaoId)
+                .orElseThrow(() -> new ResourceNotFoundException("Adoção não encontrada com id " + adocaoId)); 
+    }
 
     public List<AdocaoEntity> listarTodasAdocoes() {
         return adocaoRepository.findAll();
