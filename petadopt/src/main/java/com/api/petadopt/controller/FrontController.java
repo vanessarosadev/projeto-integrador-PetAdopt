@@ -31,6 +31,11 @@ public class FrontController {
     @Autowired
     AdotanteService adotanteService;
     
+    @GetMapping({"/", "/index"})
+    public String home() {
+        return "index";
+    }
+    
     @GetMapping("/listar-animais") 
     public String listarTodosAnimais(@RequestParam(value = "id", required = false) Integer id,
                                 @RequestParam(value = "nome", required = false) String nome,
@@ -58,7 +63,59 @@ public class FrontController {
         }
         return "listar-animais"; 
     }
+    
+    @GetMapping("/listar-adotantes") 
+    public String listarTodosAdotantes(@RequestParam(value = "id", required = false) Integer id,
+                                @RequestParam(value = "cpf", required = false) String cpf,
+                                @RequestParam(value = "nome", required = false) String nome,
+                                @RequestParam(value = "bairro", required = false) String bairro,
+                                @RequestParam(value = "cidade", required = false) String cidade,
+                                @RequestParam(value = "estado", required = false) String estado,
+                                @RequestParam(value = "cep", required = false) String cep,
+                                Model model) {
+        if (id != null) {
+            try {
+                model.addAttribute("listarTodosAdotantes", List.of(adotanteService.getAdotanteId(id)));
+            } catch (ResourceNotFoundException e) {
+                model.addAttribute("mensagemErro", "Adotante não encontrado com o ID fornecido.");
+                model.addAttribute("listarTodosAdotantes", adotanteService.listarTodosAdotantes());
+            }
+        } else if (cpf != null && !cpf.isEmpty()) {
+            try {
+                model.addAttribute("listarTodosAdotantes", List.of(adotanteService.getAdotanteCpf(cpf)));
+            } catch (ResourceNotFoundException e) {
+                model.addAttribute("mensagemErro", "Adotante não encontrado com o CPF fornecido.");
+                model.addAttribute("listarTodosAdotantes", adotanteService.listarTodosAdotantes());
+            }
+        } else if (nome != null && !nome.isEmpty()) {
+            model.addAttribute("listarTodosAdotantes", adotanteService.getAdotantePorNome(nome));
+        } else if (bairro != null && !bairro.isEmpty()) {
+            model.addAttribute("listarTodosAdotantes", adotanteService.getAdotantePorBairro(bairro));
+        } else if (cidade != null && !cidade.isEmpty()) {
+            model.addAttribute("listarTodosAdotantes", adotanteService.getAdotantePorCidade(cidade));
+        } else if (estado != null && !estado.isEmpty()) {
+            model.addAttribute("listarTodosAdotantes", adotanteService.getAdotantePorEstado(estado));
+        } else if (cep != null && !cep.isEmpty()) {
+            model.addAttribute("listarTodosAdotantes", adotanteService.getAdotantePorCep(cep));
+        } else {
+            model.addAttribute("listarTodosAdotantes", adotanteService.listarTodosAdotantes());
+        }
+        return "listar-adotantes"; 
+    }
+    
+    @GetMapping("/exibir-animal/{id}") 
+    public String exibirAnimal(@PathVariable Integer id, Model model) { 
+        AnimalEntity animal = animalService.getAnimalId(id);
+        model.addAttribute("animal", animal);
+        return "exibir-animal";
+    }
 
+    @GetMapping("/exibir-adotante/{id}") 
+    public String exibirAdotante(@PathVariable Integer id, Model model) { 
+        AdotanteEntity adotante = adotanteService.getAdotanteId(id);
+        model.addAttribute("adotante", adotante);
+        return "exibir-adotante";
+    }
     /*@GetMapping("/exibir-filme/{id}") 
     public String exibirFilme(@PathVariable Integer id, @RequestParam(value = "nota", required = false) Integer nota, Model model) { 
         FilmeEntity filme = animalService.getFilmeId(id);
@@ -95,6 +152,17 @@ public class FrontController {
         }
         return "redirect:/"; 
     } 
+    
+    @GetMapping("/deletar-adotante/{id}") 
+    public String deletarAdotante(@PathVariable(value = "id") Integer id, Model model) { 
+        try {
+            adotanteService.deletarAdotante(id);
+        } catch (ResourceNotFoundException e) {
+            model.addAttribute("erro", "Adotante não encontrado.");
+            return "erro";
+        }
+        return "redirect:/"; 
+    } 
 
     @GetMapping("/cadastrar-animal-form") 
     public String cadastrarAnimalForm(Model model) { 
@@ -122,6 +190,34 @@ public class FrontController {
             animalService.atualizarAnimal(animal.getId(), animal); 
         } 
         return "/exibir-animal"; 
+    } 
+    
+    @GetMapping("/cadastrar-adotante-form") 
+    public String cadastrarAdotanteForm(Model model) { 
+        AdotanteEntity adotante = new AdotanteEntity(); 
+        model.addAttribute("adotante", adotante); 
+        return "cadastrar-adotante"; 
+    }
+    
+    @GetMapping("/atualizar-adotante-form/{id}") 
+    public String atualizarAdotanteForm(@PathVariable(value = "id") Integer id, Model model) { 
+        AdotanteEntity adotante = adotanteService.getAdotanteId(id); 
+        model.addAttribute("adotante", adotante); 
+        return "cadastrar-adotante"; 
+    }
+    
+    @PostMapping("/cadastrar-adotante") 
+    public String cadastrarAdotante(@Valid @ModelAttribute("adotante") AdotanteEntity adotante, BindingResult result, Model model) {     
+        if (result.hasErrors()) {
+            model.addAttribute("mensagemErro", "Erro ao cadastrar o adotante. Tente novamente.");
+            return "cadastrar-adotante"; 
+        } 
+        if (adotante.getId()==null) { 
+            adotanteService.criarAdotante(adotante);        
+        } else { 
+            adotanteService.atualizarAdotante(adotante.getId(), adotante); 
+        } 
+        return "/exibir-adotante"; 
     } 
 
     /*@GetMapping("/atualizar-analise-form/{filmeId}/{analiseId}")

@@ -18,9 +18,9 @@ public interface AdotanteRepository extends JpaRepository<AdotanteEntity, Intege
     Optional<AdotanteEntity> findById(Integer id); 
     Optional<AdotanteEntity> findByNome(String nome);
     Optional<AdotanteEntity> findByCpf(String cpf);
-    List<AdotanteEntity> findByBairro(String bairro);
-    List<AdotanteEntity> findByCidade(String cidade);
-    List<AdotanteEntity> findByEstado(String estado);
-    List<AdotanteEntity> findByCep(String cep);
+    List<AdotanteEntity> findByBairroContaining(String bairro);
+    List<AdotanteEntity> findByCidadeContaining(String cidade);
+    List<AdotanteEntity> findByEstadoContaining(String estado);
+    List<AdotanteEntity> findByCepContaining(String cep);
     List<AdotanteEntity> findByNomeContaining(String nome);
 }

@@ -92,25 +92,25 @@ public class AdotanteService {
     
     public List<AdotanteEntity> getAdotantePorBairro(String bairro) { 
 
-        return adotanteRepository.findByBairro(bairro); 
+        return adotanteRepository.findByBairroContaining(bairro); 
           
     }
     
     public List<AdotanteEntity> getAdotantePorCidade(String cidade) { 
 
-        return adotanteRepository.findByCidade(cidade); 
+        return adotanteRepository.findByCidadeContaining(cidade); 
           
     }
     
     public List<AdotanteEntity> getAdotantePorEstado(String estado) { 
 
-        return adotanteRepository.findByEstado(estado); 
+        return adotanteRepository.findByEstadoContaining(estado); 
           
     }
     
     public List<AdotanteEntity> getAdotantePorCep(String cep) { 
 
-        return adotanteRepository.findByCep(cep); 
+        return adotanteRepository.findByCepContaining(cep); 
           
     }
 
