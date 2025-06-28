@@ -33,7 +33,9 @@ public class AdocaoService {
     @Autowired
     AdotanteRepository adotanteRepository;
     
-    public AdocaoEntity registrarAdocao(Integer animalId, Integer adotanteId, LocalDate dataAdocao, String observacao) {
+    public AdocaoEntity registrarAdocao(AdocaoEntity adocao) {
+        Integer animalId = adocao.getAnimal().getId();
+        Integer adotanteId = adocao.getAdotante().getId();
         AnimalEntity animal = animalRepository.findById(animalId)
                 .orElseThrow(() -> new ResourceNotFoundException("Animal não encontrado com ID " + animalId));
         if (!animal.getDisponivel()) {
@@ -43,14 +45,38 @@ public class AdocaoService {
         AdotanteEntity adotante = adotanteRepository.findById(adotanteId)
                 .orElseThrow(() -> new ResourceNotFoundException("Adotante não encontrado com ID " + adotanteId));
 
-        AdocaoEntity adocao = new AdocaoEntity(animal, adotante, dataAdocao, observacao);
+        adocao.setAnimal(animal);
+        adocao.setAdotante(adotante);
+        adocao.setDataAdocao(adocao.getDataAdocao() != null ? adocao.getDataAdocao() : LocalDate.now());
         adocaoRepository.save(adocao);
 
         animal.setDisponivel(false);
         animalRepository.save(animal);
-
+        
         return adocao;
     }
+    
+    public AdocaoEntity atualizarAdocao(Integer adocaoId, AdocaoEntity adocaoRequest) { 
+        AdocaoEntity adocao = getAdocaoId(adocaoId);
+
+        if (adocaoRequest.getAnimal() != null && adocaoRequest.getAnimal().getId() != null) {
+            AnimalEntity animal = animalRepository.findById(adocaoRequest.getAnimal().getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Animal não encontrado."));
+            adocao.setAnimal(animal);
+        }
+
+        if (adocaoRequest.getAdotante() != null && adocaoRequest.getAdotante().getId() != null) {
+            AdotanteEntity adotante = adotanteRepository.findById(adocaoRequest.getAdotante().getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Adotante não encontrado."));
+            adocao.setAdotante(adotante);
+        }
+
+        adocao.setDataAdocao(adocaoRequest.getDataAdocao());
+        adocao.setObservacao(adocaoRequest.getObservacao());
+
+        return adocaoRepository.save(adocao); 
+    }
+
     
     public AdocaoEntity getAdocaoId(Integer adocaoId) { 
 

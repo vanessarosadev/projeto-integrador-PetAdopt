@@ -24,7 +24,7 @@ import java.time.format.DateTimeFormatter;
 @Table(name="adocao")
 public class AdocaoEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
     @NotNull(message = "O animal é obrigatório")

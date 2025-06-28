@@ -129,13 +129,13 @@ public class FrontController {
                 model.addAttribute("mensagemErro", "Adoção não encontrada com o ID fornecido.");
                 model.addAttribute("listarTodasAdocoes", adocaoService.listarTodasAdocoes());
             }
-        } else if (animalId != null && !animalId.isEmpty()) {
+        } else if (animalId != null) {
             model.addAttribute("listarTodasAdocoes", adocaoService.listarAdocoesPorAnimal(animalId));
         } else if (animalNome != null && !animalNome.isEmpty()) {
             model.addAttribute("listarTodasAdocoes", adocaoService.listarAdocoesPorNomeAnimal(animalNome));
         } else if (animalEspecie != null && !animalEspecie.isEmpty()) {
             model.addAttribute("listarTodasAdocoes", adocaoService.listarAdocoesPorEspecieAnimal(animalEspecie));
-        } else if (adotanteId != null && !adotanteId.isEmpty()) {
+        } else if (adotanteId != null) {
             model.addAttribute("listarTodasAdocoes", adocaoService.listarAdocoesPorAdotante(adotanteId));
         } else if (adotanteNome != null && !adotanteNome.isEmpty()) {
             model.addAttribute("listarTodasAdocoes", adocaoService.listarAdocoesPorNomeAdotante(adotanteNome));
@@ -280,28 +280,28 @@ public class FrontController {
         return "/exibir-adotante"; 
     } 
 
-    @GetMapping("/regitrar-adocao-form") 
-    public String regitrarAdocaoForm(Model model) { 
+    @GetMapping("/registrar-adocao-form") 
+    public String registrarAdocaoForm(Model model) { 
         AdocaoEntity adocao = new AdocaoEntity(); 
         model.addAttribute("adocao", adocao); 
-        return "regitrar-adocao"; 
+        return "registrar-adocao"; 
     }
     
     @GetMapping("/atualizar-adocao-form/{id}") 
     public String atualizarAdocaoForm(@PathVariable(value = "id") Integer id, Model model) { 
         AdocaoEntity adocao = adocaoService.getAdocaoId(id); 
         model.addAttribute("adocao", adocao); 
-        return "regitrar-adocao"; 
+        return "registrar-adocao"; 
     }
     
-    @PostMapping("/cadastrar-adocao") 
-    public String cadastrarAdocao(@Valid @ModelAttribute("adocao") AdocaoEntity adocao, BindingResult result, Model model) {     
+    @PostMapping("/registrar-adocao") 
+    public String registrarAdocao(@Valid @ModelAttribute("adocao") AdocaoEntity adocao, BindingResult result, Model model) {     
         if (result.hasErrors()) {
             model.addAttribute("mensagemErro", "Erro ao cadastrar a adoção. Tente novamente.");
-            return "regitrar-adocao"; 
+            return "registrar-adocao"; 
         } 
         if (adocao.getId()==null) { 
-            adocaoService.criarAdocao(adocao);        
+            adocaoService.registrarAdocao(adocao);        
         } else { 
             adocaoService.atualizarAdocao(adocao.getId(), adocao); 
         } 
