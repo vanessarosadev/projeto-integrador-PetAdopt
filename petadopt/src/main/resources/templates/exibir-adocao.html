@@ -20,13 +20,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <div class="row">
                     <div class="col-md-8">
                         <p><strong>ID da Adoção:</strong> <span th:text="${adocao.id}"></span></p>
-                        <p><strong>ID do Animal</strong> <span th:text="${adocao.animalId}"></span></p>
-                        <p><strong>ID do Adotante</strong> <span th:text="${adocao.adotanteId}"></span></p>
+                        <p><strong>ID do Animal</strong> <span th:text="${adocao.animal.id}"></span></p>
+                        <p><strong>ID do Adotante</strong> <span th:text="${adocao.adotante.id}"></span></p>
                         <p><strong>Data da Adoção:</strong> <span th:text="${adocao.dataAdocaoFormat}"></span></p>
                         <p><strong>Observações:</strong> <span th:text="${adocao.observacao}"></span></p>
                     </div>
                     <div class="col-md-4">
-                        <a th:href="@{/atualizar-adocao-form/{id}(id=${adotante.id})}" class="btn btn-primary">Atualizar Adoção</a>
+                        <a th:href="@{/atualizar-adocao-form/{id}(id=${adocao.id})}" class="btn btn-primary">Atualizar Adoção</a>
                         <a th:href="@{/deletar-adocao/{id}(id=${adocao.id})}" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja deletar esse registro de adoção?')">Excluir Adoção</a>
                     </div>
                 </div>
@@ -34,20 +34,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <div class="row">
                         <div class="col-md-6 border-end">
                             <h5>Dados do Animal</h5>
-                            <p><strong>Nome:</strong> <span th:text="${animal.nome}"></span></p>
-                            <p><strong>Espécie:</strong> <span th:text="${animal.especie}"></span></p>
-                            <p><strong>Raça:</strong> <span th:text="${animal.raca}"></span></p>
-                            <p><strong>Gênero:</strong> <span th:text="${animal.genero}"></span></p>
-                            <p><strong>Idade:</strong> <span th:text="${animal.idade}"></span></p>
+                            <p><strong>Nome:</strong> <span th:text="${adocao.animal.nome}"></span></p>
+                            <p><strong>Espécie:</strong> <span th:text="${adocao.animal.especie}"></span></p>
+                            <p><strong>Gênero:</strong> <span th:text="${adocao.animal.genero}"></span></p>
+                            <p><strong>Raça:</strong> <span th:text="${adocao.animal.raca}"></span></p>
+                            <p><strong>Porte:</strong> <span th:text="${adocao.animal.porte}"></span></p>
+                            <p><strong>Cor:</strong> <span th:text="${adocao.animal.cor}"></span></p>
+                            <p><strong>Temperamento:</strong> <span th:text="${adocao.animal.temperamento}"></span></p>
                         </div>
 
                         <div class="col-md-6">
                             <h5>Dados do Adotante</h5>
-                            <p><strong>Nome:</strong> <span th:text="${adotante.nome}"></span></p>
-                            <p><strong>CPF:</strong> <span th:text="${adotante.cpf}"></span></p>
-                            <p><strong>Endereço:</strong> <span th:text="${adotante.endereco}"></span></p>
-                            <p><strong>Telefone:</strong> <span th:text="${adotante.telefone}"></span></p>
-                            <p><strong>Email:</strong> <span th:text="${adotante.email}"></span></p>
+                            <p><strong>Nome:</strong> <span th:text="${adocao.adotante.nome}"></span></p>
+                            <p><strong>RG:</strong> <span th:text="${adocao.adotante.rg}"></span></p>
+                            <p><strong>CPF:</strong> <span th:text="${adocao.adotante.cpf}"></span></p>
+                            <p><strong>Data de Nascimento:</strong> <span th:text="${adocao.adotante.nascimentoFormat}"></span></p>
+                            <p><strong>Telefone:</strong> <span th:text="${adocao.adotante.telefone}"></span></p>
+                            <p><strong>Logradouro:</strong> <span th:text="${adocao.adotante.logradouro}"></span></p>
+                            <p><strong>Bairro:</strong> <span th:text="${adocao.adotante.bairro}"></span></p>
+                            <p><strong>Cidade:</strong> <span th:text="${adocao.adotante.cidade}"></span></p>
+                            <p><strong>Estado:</strong> <span th:text="${adocao.adotante.estado}"></span></p>
+                            <p><strong>CEP:</strong> <span th:text="${adocao.adotante.cep}"></span></p>
                         </div>
                     </div>
                 </div>

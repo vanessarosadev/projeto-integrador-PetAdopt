@@ -60,9 +60,20 @@ public class AdocaoService {
         AdocaoEntity adocao = getAdocaoId(adocaoId);
 
         if (adocaoRequest.getAnimal() != null && adocaoRequest.getAnimal().getId() != null) {
-            AnimalEntity animal = animalRepository.findById(adocaoRequest.getAnimal().getId())
-                    .orElseThrow(() -> new ResourceNotFoundException("Animal não encontrado."));
-            adocao.setAnimal(animal);
+            AnimalEntity novoAnimal = animalRepository.findById(adocaoRequest.getAnimal().getId())
+                    .orElseThrow(() -> new ResourceNotFoundException("Animal não encontrado com ID " + adocaoRequest.getAnimal().getId()));
+            
+            if (!novoAnimal.equals(adocao.getAnimal())) {
+                AnimalEntity antigoAnimal = adocao.getAnimal();
+                if (antigoAnimal != null) {
+                    antigoAnimal.setDisponivel(true);
+                    animalRepository.save(antigoAnimal);
+                }
+                novoAnimal.setDisponivel(false);
+                animalRepository.save(novoAnimal);
+
+                adocao.setAnimal(novoAnimal);
+            }
         }
 
         if (adocaoRequest.getAdotante() != null && adocaoRequest.getAdotante().getId() != null) {
@@ -71,17 +82,26 @@ public class AdocaoService {
             adocao.setAdotante(adotante);
         }
 
-        adocao.setDataAdocao(adocaoRequest.getDataAdocao());
-        adocao.setObservacao(adocaoRequest.getObservacao());
+        if (adocaoRequest.getDataAdocao() != null) {
+            adocao.setDataAdocao(adocaoRequest.getDataAdocao());
+        }
+
+        if (adocaoRequest.getObservacao() != null) {
+            adocao.setObservacao(adocaoRequest.getObservacao());
+        }
 
         return adocaoRepository.save(adocao); 
     }
 
     
-    public AdocaoEntity getAdocaoId(Integer adocaoId) { 
-
+    public AdocaoEntity getAdocaoId(Integer adocaoId) {
         return adocaoRepository.findById(adocaoId)
-                .orElseThrow(() -> new ResourceNotFoundException("Adoção não encontrada com id " + adocaoId)); 
+                .map(adocao -> {
+                    adocao.getAnimal().getId();
+                    adocao.getAdotante().getId();
+                    return adocao;
+                })
+                .orElseThrow(() -> new ResourceNotFoundException("Adoção não encontrada com id " + adocaoId));
     }
 
     public List<AdocaoEntity> listarTodasAdocoes() {

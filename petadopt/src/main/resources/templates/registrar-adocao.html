@@ -15,7 +15,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
     <body>
         <header th:insert="navbar.html"></header>
         <div class="container mt-5">
-            <h1 class="text-center">Registrar Adoção</h1>
+            <h1 class="section-title" th:text="${adocao.id != null ? 'Atualizar Adoção' : 'Registrar Adoção'}"></h1>
 
             <div th:if="${mensagemErro}" class="alert alert-danger" role="alert">
                 <span th:text="${mensagemErro}"></span>
@@ -28,16 +28,18 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                     <select id="animal" class="form-select" th:field="*{animal.id}" required>
                         <option value="" selected disabled>Selecione um animal</option>
                         <option th:each="animal : ${animais}" th:value="${animal.id}" 
-                                th:text="${animal.nome} + ' (' + ${animal.especie} + ')'"></option>
+                                th:text="${animal.nome} + ' (' + ${animal.especie} + ')'"
+                                th:selected="${adocao.animal != null && animal.id == adocao.animal.id}"></option>
                     </select>
                 </div>
 
                 <div class="mb-3">
                     <label for="adotante" class="form-label">Adotante</label>
                     <select id="adotante" class="form-select" th:field="*{adotante.id}" required>
-                        <option value=""selected disabled>Selecione um adotante</option>
+                        <option value="" selected disabled>Selecione um adotante</option>
                         <option th:each="adotante : ${adotantes}" th:value="${adotante.id}" 
-                                th:text="${adotante.nome} + ' (CPF: ' + ${adotante.cpf} + ')'"></option>
+                                th:text="${adotante.nome} + ' (CPF: ' + ${adotante.cpf} + ')'"
+                                th:selected="${adocao.adotante != null && adotante.id == adocao.adotante.id}"></option>
                     </select>
                 </div>
 
@@ -52,7 +54,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 </div>
 
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Registrar Adoção</button>
+                    <button type="submit" class="btn btn-primary">Salvar</button>
                     <a href="/listar-adocoes" class="btn btn-secondary">Cancelar</a>
                 </div>
             </form>

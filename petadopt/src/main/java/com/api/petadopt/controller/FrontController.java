@@ -162,34 +162,12 @@ public class FrontController {
     @GetMapping("/exibir-adocao/{id}") 
     public String exibirAdocao(@PathVariable Integer id, Model model) { 
         AdocaoEntity adocao = adocaoService.getAdocaoId(id);
+        if (adocao.getAnimal() == null || adocao.getAdotante() == null) {
+            throw new IllegalArgumentException("A adoção não possui informações completas de animal ou adotante.");
+        }
         model.addAttribute("adocao", adocao);
         return "exibir-adocao";
     }
-    /*@GetMapping("/exibir-filme/{id}") 
-    public String exibirFilme(@PathVariable Integer id, @RequestParam(value = "nota", required = false) Integer nota, Model model) { 
-        FilmeEntity filme = animalService.getFilmeId(id);
-        model.addAttribute("filme", filme);
-        
-        List<AnaliseEntity> analises;
-        String mensagem = null;
-        boolean filtroAtivo = (nota != null);
-        
-        if (filtroAtivo) {
-            analises = analiseService.listarAnalisesFilmePorNota(filme, nota);
-            if (analises.isEmpty()) {
-                mensagem = "Não existem análises com essa nota.";
-            }
-        } else {
-            analises = analiseService.listarAnalisesFilme(filme);
-            if (analises.isEmpty()) {
-                mensagem = "Esse filme ainda não possui análises.";
-            }
-        }
-        model.addAttribute("analises", analises);
-        model.addAttribute("mensagem", mensagem);
-        model.addAttribute("filtroAtivo", filtroAtivo);
-        return "exibir"; 
-    }*/
     
     @GetMapping("/deletar-animal/{id}") 
     public String deletarAnimal(@PathVariable(value = "id") Integer id, Model model) { 
@@ -295,8 +273,18 @@ public class FrontController {
     
     @GetMapping("/atualizar-adocao-form/{id}") 
     public String atualizarAdocaoForm(@PathVariable(value = "id") Integer id, Model model) { 
-        AdocaoEntity adocao = adocaoService.getAdocaoId(id); 
-        model.addAttribute("adocao", adocao); 
+        AdocaoEntity adocao = adocaoService.getAdocaoId(id);
+        model.addAttribute("adocao", adocao);
+
+        List<AnimalEntity> animaisDisponiveis = animalService.listarAnimaisDisponiveis();
+        if (adocao.getAnimal() != null && !animaisDisponiveis.contains(adocao.getAnimal())) {
+            animaisDisponiveis.add(adocao.getAnimal());
+        }
+        model.addAttribute("animais", animaisDisponiveis);
+
+        List<AdotanteEntity> adotantes = adotanteService.listarTodosAdotantes();
+        model.addAttribute("adotantes", adotantes);
+
         return "registrar-adocao"; 
     }
     

@@ -28,12 +28,12 @@ public class AdocaoEntity {
     private Integer id;
 
     @NotNull(message = "O animal é obrigatório")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "animal_id", nullable = false)
     private AnimalEntity animal;
 
     @NotNull(message = "O adotante é obrigatório")
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "adotante_id", nullable = false)
     private AdotanteEntity adotante;
 

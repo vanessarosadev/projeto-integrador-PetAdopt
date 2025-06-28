@@ -56,11 +56,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <thead class="thead-dark">
                     <tr>
                         <th>ID da Adoção</th>
-                        <th>ID da Animal</th>
                         <th>Nome do Animal</th>
                         <th>Espécie</th>
-                        <th>ID da Adotante</th>
                         <th>Nome do Adotante</th>
+                        <th>CPF do Adotante</th>
                         <th>Data da Adoção</th>
                         <th>Observações</th>
                         <th>Ações</th>
@@ -69,11 +68,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
                 <tbody>
                     <tr th:each="adocao : ${listarTodasAdocoes}">
                         <td th:text="${adocao.id}"></td>
-                        <td th:text="${adocao.animalId}"></td>
                         <td th:text="${adocao.animal.nome}"></td>
                         <td th:text="${adocao.animal.especie}"></td>
-                        <td th:text="${adocao.adotanteId}"></td>
                         <td th:text="${adocao.adotante.nome}"></td>
+                        <td th:text="${adocao.adotante.cpf}"></td>
                         <td th:text="${adocao.dataAdocao}"></td>
                         <td th:text="${adocao.observacao}"></td>
                         <td>
