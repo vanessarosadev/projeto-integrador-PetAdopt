@@ -282,6 +282,12 @@ public class FrontController {
 
     @GetMapping("/registrar-adocao-form") 
     public String registrarAdocaoForm(Model model) { 
+        List<AnimalEntity> animais = animalService.listarAnimaisDisponiveis();
+        model.addAttribute("animais", animais);
+
+        List<AdotanteEntity> adotantes = adotanteService.listarTodosAdotantes();
+        model.addAttribute("adotantes", adotantes);
+        
         AdocaoEntity adocao = new AdocaoEntity(); 
         model.addAttribute("adocao", adocao); 
         return "registrar-adocao"; 
@@ -307,66 +313,4 @@ public class FrontController {
         } 
         return "/exibir-adocao"; 
     }
-    /*@GetMapping("/atualizar-analise-form/{filmeId}/{analiseId}")
-    public String atualizarAnaliseForm(@PathVariable Integer filmeId, @PathVariable Integer analiseId, Model model) {
-        FilmeEntity filme = filmeService.getFilmeId(filmeId);
-        if (filme == null) {
-            model.addAttribute("erro", "Filme não encontrado");
-            return "erro";
-        }
-        AnaliseEntity analise = analiseService.getAnaliseId(analiseId);
-        if (analise == null || !analise.getFilme().getId().equals(filmeId)) {
-            model.addAttribute("erro", "Análise não encontrada ou não está associada a este filme.");
-            return "erro";
-        }
-        model.addAttribute("filme", filme);
-        model.addAttribute("analise", analise);
-        return "adicionar";
-    }*/
-    
-    /*@GetMapping("/adicionar-analise-form/{filmeId}")
-    public String adicionarAnaliseForm(@PathVariable Integer filmeId, Model model) {
-        FilmeEntity filme = filmeService.getFilmeId(filmeId);
-        if (filme == null) {
-            model.addAttribute("erro", "Filme não encontrado");
-            return "erro";
-        }
-        AnaliseEntity novaAnalise = new AnaliseEntity();
-        novaAnalise.setFilme(filme);
-        model.addAttribute("filme", filme);
-        model.addAttribute("analise", novaAnalise);
-        return "adicionar";
-    }
-
-    @PostMapping("/adicionar-analise")
-    public String adicionarAnalise(@Valid @ModelAttribute("analise") AnaliseEntity analise, @ModelAttribute("filme") FilmeEntity filme, BindingResult result, Model model) {
-        try {
-            if (result.hasErrors()) {
-                model.addAttribute("mensagemErro", "Erro ao adicionar o comentário. Tente novamente.");
-                return "adicionar";
-            }
-            if (analise.getId()==null) { 
-                analiseService.criarAnalise(analise);        
-            } else { 
-                analiseService.atualizarAnalise(analise.getId(), analise); 
-            }
-            return "redirect:/exibir-filme/" + analise.getFilme().getId();
-        } catch (ResourceNotFoundException e) {
-            model.addAttribute("erro", "Filme não encontrado");
-            return "erro";
-        }
-    }
-     */
-    /*@GetMapping("/deletar-analise/{analiseId}")
-    public String deletarAnalise(@PathVariable Integer analiseId, Model model) {
-        AnaliseEntity analise = analiseService.getAnaliseId(analiseId);
-        if (analise == null) {
-            model.addAttribute("erro", "Análise não encontrada.");
-            return "erro";
-        }
-        Integer filmeId = analise.getFilme().getId();
-        analiseService.deletarAnalise(analiseId);
-        return "redirect:/exibir-filme/" + filmeId;
-    }*/
-
 }

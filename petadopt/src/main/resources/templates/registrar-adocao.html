@@ -5,16 +5,61 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 -->
 <html xmlns="w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>PetAdopt - Registro de Adoções</title>
+        <title th:text="${adocao.id != null ? 'PetAdopt - Atualizar Adoção' : 'PetAdopt - Registro de Adoções'}"></title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4Q6Gf2aSP4eDXB8Miphtr37CMZZQ5oXLH2yaXMJ2w8e2ZtHTl7GptT4jmndRuHDT" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
         <link rel="stylesheet" th:href="@{/style.css}" />
     </head>
     <body>
         <header th:insert="navbar.html"></header>
-        <div>TODO write content</div>
+        <div class="container mt-5">
+            <h1 class="text-center">Registrar Adoção</h1>
+
+            <div th:if="${mensagemErro}" class="alert alert-danger" role="alert">
+                <span th:text="${mensagemErro}"></span>
+            </div>
+
+            <form th:action="@{/registrar-adocao}" th:object="${adocao}" method="post" class="mt-4">
+                <div class="mb-3">
+                    <input type="hidden" th:field="*{id}" />
+                    <label for="animal" class="form-label">Animal</label>
+                    <select id="animal" class="form-select" th:field="*{animal.id}" required>
+                        <option value="" selected disabled>Selecione um animal</option>
+                        <option th:each="animal : ${animais}" th:value="${animal.id}" 
+                                th:text="${animal.nome} + ' (' + ${animal.especie} + ')'"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="adotante" class="form-label">Adotante</label>
+                    <select id="adotante" class="form-select" th:field="*{adotante.id}" required>
+                        <option value=""selected disabled>Selecione um adotante</option>
+                        <option th:each="adotante : ${adotantes}" th:value="${adotante.id}" 
+                                th:text="${adotante.nome} + ' (CPF: ' + ${adotante.cpf} + ')'"></option>
+                    </select>
+                </div>
+
+                <div class="mb-3">
+                    <label for="dataAdocao" class="form-label">Data da Adoção</label>
+                    <input type="date" id="dataAdocao" class="form-control" th:field="*{dataAdocao}" required>
+                </div>
+
+                <div class="mb-3">
+                    <label for="observacao" class="form-label">Observação (opcional)</label>
+                    <textarea id="observacao" class="form-control" th:field="*{observacao}" rows="4" maxlength="255"></textarea>
+                </div>
+
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary">Registrar Adoção</button>
+                    <a href="/listar-adocoes" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+        <br>
         
+        <footer class="footer bg-dark text-white py-5" th:insert="footerbar.html"></footer>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.6/dist/js/bootstrap.bundle.min.js" integrity="sha384-j1CDi7MgGQ12Z7Qab0qlWQ/Qqz24Gc6BM0thvEMVjHnfYGF0rmFCozFSxQBxwHKO" crossorigin="anonymous"></script>
         <script th:src="@{/script.js}"></script>
     </body>
