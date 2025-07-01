@@ -89,8 +89,8 @@ public class AdocaoService {
         if (adocaoRequest.getObservacao() != null) {
             adocao.setObservacao(adocaoRequest.getObservacao());
         }
-
-        return adocaoRepository.save(adocao); 
+        adocaoRepository.save(adocao);
+        return adocao; 
     }
 
     

@@ -45,7 +45,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/Other/html.html to edit this temp
 
                 <div class="mb-3">
                     <label for="dataAdocao" class="form-label">Data da Adoção</label>
-                    <input type="date" id="dataAdocao" class="form-control" th:field="*{dataAdocao}" required>
+                    <input type="date" id="dataAdocao" class="form-control" th:value="${adocao.dataAdocao != null ? adocao.dataAdocao : ''}" th:field="*{dataAdocao}" required>
                 </div>
 
                 <div class="mb-3">

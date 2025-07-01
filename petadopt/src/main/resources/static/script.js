@@ -1,11 +1,9 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Ativar tooltips
     const tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     tooltipTriggerList.map(function (tooltipTriggerEl) {
         return new bootstrap.Tooltip(tooltipTriggerEl);
     });
     
-    // Scroll suave para links internos
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -23,7 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Adicionar classe ativa ao navbar durante o scroll
     const sections = document.querySelectorAll('section');
     const navItems = document.querySelectorAll('.nav-link');
     
@@ -47,7 +44,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Animar elementos quando entram na viewport
     const animateOnScroll = function() {
         const elements = document.querySelectorAll('.feature-card, .img-fluid');
         
@@ -62,8 +58,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     window.addEventListener('scroll', animateOnScroll);
-    animateOnScroll(); // Executar uma vez ao carregar a página
+    animateOnScroll();
     
-    // Adicionar ano atual no footer
     document.getElementById('current-year').textContent = new Date().getFullYear();
 });
